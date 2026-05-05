@@ -1,0 +1,159 @@
+import type { FormEvent } from "react";
+import { useEffect, useState } from "react";
+import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
+import type { Location } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { GoogleLogin, type CredentialResponse } from "@react-oauth/google";
+import MySpinner from "../../../components/layouts/MySpinner";
+import useFormValidation from "../../../hooks/userFormValidation";
+import { useAuth } from "../auth-context";
+
+const Login = () => {
+  const [showPassword, setShowPassword] = useState(false);
+  const {
+    login,
+    loginWithGoogle,
+    isLoading,
+    error,
+    clearError,
+    setError,
+    isAuthenticated,
+  } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const state = location.state as { from?: Location } | undefined;
+  const redirectTo = state?.from?.pathname || "/";
+
+  const { values, errors, touched, handleChange, handleBlur, validateForm } =
+    useFormValidation({
+      username: "",
+      password: "",
+    });
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate(redirectTo, { replace: true });
+    }
+  }, [isAuthenticated, navigate, redirectTo]);
+
+  useEffect(() => {
+    return () => clearError();
+  }, [clearError]);
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    if (!validateForm()) {
+      return;
+    }
+
+    await login({
+      username: values.username,
+      password: values.password,
+    });
+  };
+
+  const handleGoogleLoginSuccess = async (
+    credentialResponse: CredentialResponse
+  ) => {
+    if (!credentialResponse.credential) {
+      setError("Thiếu credential từ Google.");
+      return;
+    }
+
+    await loginWithGoogle(credentialResponse.credential);
+  };
+
+  const handleGoogleLoginFailure = () => {
+    setError("Đăng nhập Google thất bại. Vui lòng thử lại.");
+  };
+
+  return (
+    <Container className="my-5">
+      <Row className="justify-content-center">
+        <Col md={6} lg={5} xl={4}>
+          <h2 className="text-center mb-4">Đăng nhập</h2>
+
+          {error && <Alert variant="danger">{error}</Alert>}
+
+          <Form onSubmit={handleSubmit}>
+            <Form.Group className="mb-3">
+              <Form.Label>Tên đăng nhập</Form.Label>
+              <Form.Control
+                type="text"
+                name="username"
+                value={values.username}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                isInvalid={Boolean(touched.username && errors.username)}
+                disabled={isLoading}
+              />
+              <Form.Control.Feedback type="invalid">
+                {errors.username}
+              </Form.Control.Feedback>
+            </Form.Group>
+
+            <Form.Group className="mb-4">
+              <Form.Label>Mật khẩu</Form.Label>
+              <div className="position-relative">
+                <Form.Control
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  value={values.password}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  isInvalid={Boolean(touched.password && errors.password)}
+                  disabled={isLoading}
+                />
+                <Button
+                  variant="link"
+                  className="position-absolute end-0 top-50 translate-middle-y text-muted"
+                  onClick={() => setShowPassword(!showPassword)}
+                  tabIndex={-1}
+                >
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                </Button>
+                <Form.Control.Feedback type="invalid">
+                  {errors.password}
+                </Form.Control.Feedback>
+              </div>
+            </Form.Group>
+
+            {isLoading ? (
+              <MySpinner />
+            ) : (
+              <div className="d-grid gap-2">
+                <Button variant="primary" type="submit">
+                  Đăng nhập
+                </Button>
+              </div>
+            )}
+          </Form>
+
+          <div className="text-center mt-3">
+            <p className="mb-3">Hoặc đăng nhập với</p>
+            <div className="d-flex justify-content-center">
+              <GoogleLogin
+                onSuccess={handleGoogleLoginSuccess}
+                onError={handleGoogleLoginFailure}
+                useOneTap
+                theme="filled_blue"
+                text="signin_with"
+                shape="circle"
+              />
+            </div>
+          </div>
+
+          <div className="text-center mt-3">
+            <p>
+              Chưa có tài khoản? <Link to="/register">Đăng ký ngay</Link>
+            </p>
+          </div>
+        </Col>
+      </Row>
+    </Container>
+  );
+};
+
+export default Login;

@@ -1,0 +1,56 @@
+@import url("https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap");
+
+.article-detail {
+  font-family: "Be Vietnam Pro", sans-serif;
+  color: #0f2c3f;
+}
+
+.article-detail h1 {
+  font-family: "Playfair Display", serif;
+  font-weight: 700;
+}
+
+.article-summary-box {
+  border: 1px solid rgba(15, 42, 63, 0.14);
+  border-left: 4px solid #d97706;
+  background: rgba(255, 248, 235, 0.8);
+  border-radius: 0.9rem;
+  padding: 0.9rem 1rem;
+  box-shadow: 0 12px 24px rgba(15, 42, 63, 0.08);
+}
+
+.article-summary-label {
+  display: inline-block;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: #6b7280;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+}
+
+.article-summary-text {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+.article-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 0.92rem;
+}
+
+.article-meta p {
+  margin: 0;
+}
+
+.article-content p {
+  line-height: 1.75;
+}
+
+.article-recommendations {
+  margin-top: 2rem;
+}

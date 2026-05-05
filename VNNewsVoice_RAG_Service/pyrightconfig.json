@@ -1,0 +1,6 @@
+{
+  "typeCheckingMode": "basic",
+  "reportOptionalSubscript": "none",
+  "reportOptionalMemberAccess": "none",
+  "reportOptionalCall": "none"
+}

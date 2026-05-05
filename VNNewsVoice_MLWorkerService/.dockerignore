@@ -1,0 +1,16 @@
+.git
+.github
+.venv
+__pycache__
+.pytest_cache
+.ruff_cache
+.dvc
+.dvc/**
+tests/
+scripts/
+!scripts/entrypoint.sh
+*.log
+.env
+.env.*
+models/
+data/

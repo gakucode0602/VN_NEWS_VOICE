@@ -1,0 +1,62 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+  external_labels:
+    environment: production
+
+scrape_configs:
+  # --------------------------------------------------------------------------
+  # Java services — Spring Boot Actuator /actuator/prometheus
+  # Container names from docker-compose.prod.yml on vnnewsvoice_infrastructure_default network
+  # --------------------------------------------------------------------------
+  - job_name: 'auth-service'
+    static_configs:
+      - targets: ['vnnewsvoice-auth:8084']
+    metrics_path: '/actuator/prometheus'
+
+  - job_name: 'article-service'
+    static_configs:
+      - targets: ['vnnewsvoice-article:8080']
+    metrics_path: '/actuator/prometheus'
+
+  - job_name: 'comment-service'
+    static_configs:
+      - targets: ['vnnewsvoice-comment:8083']
+    metrics_path: '/actuator/prometheus'
+
+  - job_name: 'scheduler-service'
+    static_configs:
+      - targets: ['vnnewsvoice-scheduler:8085']
+    metrics_path: '/actuator/prometheus'
+
+  # --------------------------------------------------------------------------
+  # Python services — prometheus-fastapi-instrumentator /metrics
+  # --------------------------------------------------------------------------
+  - job_name: 'crawling-service'
+    static_configs:
+      - targets: ['vnnewsvoice-crawler:8001']
+    metrics_path: '/metrics'
+
+  - job_name: 'rag-service'
+    scheme: https
+    static_configs:
+      - targets: ['REPLACE_WITH_RUNPOD_HOST']  # e.g. abc123def456-8000.proxy.runpod.net
+    metrics_path: '/metrics'
+    tls_config:
+      insecure_skip_verify: false
+
+  # --------------------------------------------------------------------------
+  # Infrastructure — RabbitMQ prometheus plugin (port 15692)
+  # Requires rabbitmq_prometheus plugin enabled (see rabbitmq/enabled_plugins)
+  # --------------------------------------------------------------------------
+  - job_name: 'rabbitmq'
+    static_configs:
+      - targets: ['vnnewsvoice_rabbitmq:15692']
+    metrics_path: '/metrics'
+
+  # --------------------------------------------------------------------------
+  # Self-monitoring — Prometheus itself
+  # --------------------------------------------------------------------------
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']

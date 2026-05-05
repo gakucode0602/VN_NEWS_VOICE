@@ -1,0 +1,217 @@
+.category-bar {
+  --bar-ink: #132c3f;
+  --bar-muted: #5b6b7a;
+  --bar-accent: #0f766e;
+  --bar-accent-soft: rgba(15, 118, 110, 0.12);
+  background-image:
+    radial-gradient(circle at 20% 120%, rgba(15, 118, 110, 0.18), transparent 65%),
+    radial-gradient(circle at 90% 0%, rgba(255, 183, 77, 0.2), transparent 45%),
+    linear-gradient(90deg, #ffffff, #f7f4ee);
+  border-bottom: 1px solid rgba(19, 44, 63, 0.12);
+  font-family: "Be Vietnam Pro", sans-serif;
+  animation: bar-reveal 0.7s ease;
+}
+
+.category-bar-inner {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 1rem;
+  align-items: center;
+  padding: 0.6rem 0 0.7rem;
+}
+
+.category-home {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.category-home-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  border: 1px solid rgba(19, 44, 63, 0.18);
+  background: rgba(255, 255, 255, 0.8);
+  color: var(--bar-ink);
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.category-home-link:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 20px rgba(19, 44, 63, 0.12);
+}
+
+.category-chat-link {
+  background: var(--bar-accent);
+  border-color: var(--bar-accent);
+  color: #fff;
+}
+
+.category-chat-link:hover {
+  color: #fff;
+  box-shadow: 0 10px 20px rgba(15, 118, 110, 0.25);
+}
+
+.category-list {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  overflow-x: auto;
+  padding-bottom: 0.2rem;
+  scroll-behavior: smooth;
+}
+
+.category-list::-webkit-scrollbar {
+  height: 6px;
+}
+
+.category-list::-webkit-scrollbar-thumb {
+  background: rgba(19, 44, 63, 0.2);
+  border-radius: 999px;
+}
+
+.category-chip {
+  border: 1px solid rgba(19, 44, 63, 0.16);
+  background: rgba(255, 255, 255, 0.85);
+  color: var(--bar-ink);
+  border-radius: 999px;
+  padding: 0.35rem 0.85rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  animation: chip-rise 0.4s ease both;
+}
+
+.category-chip:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 20px rgba(19, 44, 63, 0.12);
+}
+
+.category-chip.active {
+  background: var(--bar-accent);
+  border-color: var(--bar-accent);
+  color: #fff;
+  box-shadow: 0 14px 24px rgba(15, 118, 110, 0.25);
+}
+
+.category-source {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.source-dropdown .source-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.75rem;
+  border-radius: 0.9rem;
+  border: 1px solid rgba(19, 44, 63, 0.18);
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--bar-ink);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.source-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--bar-muted);
+}
+
+.source-value {
+  max-width: 140px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.source-menu {
+  max-height: 280px;
+  overflow-y: auto;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(19, 44, 63, 0.12);
+  box-shadow: 0 16px 32px rgba(19, 44, 63, 0.15);
+}
+
+@keyframes bar-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes chip-rise {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.category-chip:nth-child(1) {
+  animation-delay: 0.02s;
+}
+
+.category-chip:nth-child(2) {
+  animation-delay: 0.04s;
+}
+
+.category-chip:nth-child(3) {
+  animation-delay: 0.06s;
+}
+
+.category-chip:nth-child(4) {
+  animation-delay: 0.08s;
+}
+
+.category-chip:nth-child(5) {
+  animation-delay: 0.1s;
+}
+
+.category-chip:nth-child(6) {
+  animation-delay: 0.12s;
+}
+
+@media (max-width: 991.98px) {
+  .category-bar-inner {
+    grid-template-columns: 1fr;
+  }
+
+  .category-home,
+  .category-source {
+    justify-content: center;
+  }
+
+  .category-list {
+    padding-bottom: 0.4rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .category-bar,
+  .category-chip {
+    animation: none;
+  }
+
+  .category-chip {
+    transition: none;
+  }
+
+  .category-home-link {
+    transition: none;
+  }
+}

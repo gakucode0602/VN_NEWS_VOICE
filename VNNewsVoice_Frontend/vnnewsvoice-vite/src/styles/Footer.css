@@ -1,0 +1,140 @@
+.custom-footer {
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    margin-top: auto;
+    color: white !important;
+}
+
+.custom-footer * {
+    color: white !important;
+}
+
+.custom-footer .text-muted {
+    color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.custom-footer .text-muted:hover {
+    color: white !important;
+}
+
+.footer-brand .footer-logo {
+    object-fit: fill;
+}
+
+.footer-links li a {
+    transition: all 0.3s ease;
+    color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.footer-links li a:hover {
+    color: #3498db !important;
+    transform: translateX(5px);
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+}
+
+.contact-item i {
+    width: 20px;
+    text-align: center;
+}
+
+.contact-item a {
+    color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.contact-item a:hover {
+    color: white !important;
+}
+
+.social-links {
+    margin-top: 1rem;
+}
+
+.social-links h6 {
+    color: white !important;
+}
+
+.social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    text-decoration: none;
+    color: white !important;
+    transition: all 0.3s ease;
+    font-size: 18px;
+}
+
+.social-link.linkedin {
+    background: #0077b5;
+}
+
+.social-link.github {
+    background: #333;
+}
+
+.social-link.email {
+    background: #dd4b39;
+}
+
+.social-link.phone {
+    background: #25d366;
+}
+
+.social-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    color: white !important;
+}
+
+.app-features {
+    margin-top: 1rem;
+}
+
+.app-features .fas.fa-check-circle {
+    color: #27ae60;
+}
+
+.app-features small {
+    color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.footer-bottom {
+    background: rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    border-radius: 10px;
+}
+
+.footer-bottom p {
+    color: white !important;
+}
+
+.footer-bottom .text-muted {
+    color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.footer-bottom strong {
+    color: white !important;
+}
+
+.footer-bottom .text-danger {
+    color: #e74c3c !important;
+}
+
+@media (max-width: 768px) {
+    .social-links .d-flex {
+        justify-content: center;
+    }
+    
+    .footer-brand {
+        text-align: center;
+    }
+    
+    .developer-info {
+        text-align: center;
+    }
+}

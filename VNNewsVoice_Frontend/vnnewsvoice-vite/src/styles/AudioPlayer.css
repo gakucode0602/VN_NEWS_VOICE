@@ -1,0 +1,218 @@
+.audio-player {
+  --player-ink: #0f2c3f;
+  --player-muted: #637482;
+  --player-accent: #0f766e;
+  --player-warm: #d97706;
+  background-image:
+    radial-gradient(circle at 0% 0%, rgba(15, 118, 110, 0.12), transparent 60%),
+    linear-gradient(120deg, rgba(255, 255, 255, 0.95), rgba(245, 251, 255, 0.92));
+  border: 1px solid rgba(15, 42, 63, 0.12);
+  border-radius: 18px;
+  padding: 1.1rem 1.3rem;
+  margin-bottom: 1.6rem;
+  box-shadow: 0 20px 35px rgba(15, 42, 63, 0.12);
+  font-family: "Be Vietnam Pro", sans-serif;
+  color: var(--player-ink);
+}
+
+.audio-player-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.audio-eyebrow {
+  display: block;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 0.65rem;
+  color: var(--player-muted);
+  font-weight: 600;
+}
+
+.audio-title {
+  margin: 0.35rem 0 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.audio-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  color: var(--player-muted);
+  padding: 0.3rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid rgba(15, 42, 63, 0.12);
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #cbd5f5;
+}
+
+.audio-status.playing {
+  color: var(--player-accent);
+  border-color: rgba(15, 118, 110, 0.25);
+}
+
+.audio-status.playing .status-dot {
+  background: var(--player-accent);
+  box-shadow: 0 0 0 6px rgba(15, 118, 110, 0.15);
+  animation: pulse 1.8s ease infinite;
+}
+
+.audio-player-main {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+.audio-action {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 1.2rem;
+  box-shadow: 0 12px 24px rgba(15, 42, 63, 0.2);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.audio-action.play {
+  background: var(--player-accent);
+}
+
+.audio-action.pause {
+  background: var(--player-warm);
+}
+
+.audio-action:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 28px rgba(15, 42, 63, 0.24);
+}
+
+.audio-progress {
+  flex: 1;
+  min-width: 220px;
+}
+
+.audio-time {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.72rem;
+  color: var(--player-muted);
+  margin-bottom: 0.4rem;
+}
+
+.audio-range {
+  width: 100%;
+  height: 6px;
+  border-radius: 999px;
+  appearance: none;
+  -webkit-appearance: none;
+  outline: none;
+  background: #e5e7eb;
+  cursor: pointer;
+}
+
+.audio-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--player-accent);
+  cursor: pointer;
+  border: 2px solid #fff;
+  box-shadow: 0 4px 10px rgba(15, 42, 63, 0.25);
+}
+
+.audio-range::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--player-accent);
+  cursor: pointer;
+  border: 2px solid #fff;
+  box-shadow: 0 4px 10px rgba(15, 42, 63, 0.25);
+}
+
+.audio-volume {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.audio-icon-button {
+  border: none;
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--player-ink);
+  box-shadow: 0 10px 18px rgba(15, 42, 63, 0.15);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.audio-icon-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 22px rgba(15, 42, 63, 0.2);
+}
+
+.audio-volume-range {
+  width: 110px;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(15, 118, 110, 0.2);
+  }
+  70% {
+    box-shadow: 0 0 0 12px rgba(15, 118, 110, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(15, 118, 110, 0);
+  }
+}
+
+@media (max-width: 768px) {
+  .audio-player-top {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .audio-volume {
+    width: 100%;
+  }
+
+  .audio-volume-range {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .audio-action,
+  .audio-icon-button {
+    transition: none;
+  }
+
+  .audio-status.playing .status-dot {
+    animation: none;
+  }
+}

@@ -1,0 +1,2 @@
+ALTER TABLE article
+    ADD COLUMN is_video_accepted BOOLEAN NOT NULL DEFAULT FALSE;

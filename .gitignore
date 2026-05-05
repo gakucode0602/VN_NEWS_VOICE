@@ -1,0 +1,44 @@
+# ─── Secrets & environment files ──────────────────────────────────────────────
+.env
+.env.*
+!.env.*.example
+!.env.example
+*.env.properties
+!*.env.properties.example
+
+# ─── Java / Maven build artifacts ─────────────────────────────────────────────
+target/
+*.class
+*.jar
+*.war
+*.ear
+*.log
+
+# ─── Python ───────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[codz]
+*.so
+.venv/
+venv/
+.pytest_cache/
+*.egg-info/
+dist/
+build/
+
+# ─── Node / Frontend ──────────────────────────────────────────────────────────
+node_modules/
+dist/
+dist-ssr/
+*.local
+
+# ─── DVC cache (large binary model data — tracked by DVC, not Git) ────────────
+.dvc/cache/
+.dvc/tmp/
+
+# ─── IDE & OS ─────────────────────────────────────────────────────────────────
+.idea/
+.vscode/
+*.suo
+*.sw?
+.DS_Store
+Thumbs.db

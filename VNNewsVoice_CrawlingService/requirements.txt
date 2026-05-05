@@ -1,0 +1,36 @@
+# Crawling Service — Python dependencies
+# Install with uv: uv pip install -r requirements.txt
+
+# Web framework
+fastapi==0.115.14
+uvicorn[standard]==0.35.0
+
+# RabbitMQ async client
+aio-pika==9.4.3
+
+# HTTP client (async crawling)
+aiohttp==3.11.18
+
+# HTML parsing
+beautifulsoup4==4.13.4
+lxml==6.0.0
+
+# RSS feed parsing
+feedparser==6.0.11
+
+# Date parsing
+python-dateutil==2.9.0.post0
+pytz==2025.2
+
+# Data validation (message schemas)
+pydantic==2.11.7
+pydantic-settings==2.10.1
+
+# Environment variables
+python-dotenv==1.1.1
+
+# JSON
+orjson==3.10.18
+
+# Utilities
+tenacity==8.5.0  # retry logic

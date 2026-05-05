@@ -1,0 +1,17 @@
+.env
+.env.*
+*.log
+logs/
+*.pid
+*.tmp
+*.swp
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+certs/
+ssl/
+*.crt
+*.key
+*.pem
+acme.json

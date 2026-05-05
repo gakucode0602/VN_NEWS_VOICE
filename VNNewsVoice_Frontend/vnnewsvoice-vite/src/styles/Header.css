@@ -1,0 +1,199 @@
+@import url("https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap");
+
+.main-header {
+  --header-ink: #0f2c3f;
+  --header-muted: #4b5b6a;
+  --header-accent: #d97706;
+  background-image:
+    radial-gradient(circle at 12% 20%, rgba(255, 199, 109, 0.35), transparent 55%),
+    radial-gradient(circle at 88% 10%, rgba(89, 153, 255, 0.2), transparent 45%),
+    linear-gradient(90deg, #f9f4ea, #eef6ff);
+  border-bottom: 1px solid rgba(15, 44, 63, 0.12);
+  padding: 0.75rem 0 0.9rem;
+  animation: header-reveal 0.6s ease;
+  font-family: "Be Vietnam Pro", sans-serif;
+}
+
+.header-inner {
+  display: grid;
+  grid-template-columns: minmax(180px, 1fr) auto minmax(220px, 1fr);
+  grid-template-areas: "left center right";
+  align-items: center;
+  gap: 1rem;
+}
+
+.header-slot {
+  display: flex;
+  align-items: center;
+}
+
+.header-left {
+  grid-area: left;
+  justify-content: flex-start;
+}
+
+.header-center {
+  grid-area: center;
+  justify-content: center;
+}
+
+.header-right {
+  grid-area: right;
+  justify-content: flex-end;
+}
+
+.header-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  text-decoration: none;
+  color: var(--header-ink);
+  font-family: "Playfair Display", serif;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.header-logo {
+  width: 86px;
+  height: 52px;
+  object-fit: contain;
+}
+
+.brand-text {
+  font-size: 1.35rem;
+  text-transform: uppercase;
+}
+
+.header-auth {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: "Be Vietnam Pro", sans-serif;
+}
+
+.header-auth-link {
+  text-decoration: none;
+  color: var(--header-ink);
+  font-weight: 600;
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  border: 1px solid rgba(15, 44, 63, 0.18);
+  background: rgba(255, 255, 255, 0.75);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.header-auth-link:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(15, 44, 63, 0.12);
+}
+
+.header-user-dropdown .user-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: "Be Vietnam Pro", sans-serif;
+  font-weight: 600;
+  color: var(--header-ink);
+  border: 1px solid rgba(15, 44, 63, 0.18);
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 999px;
+  padding: 0.35rem 0.75rem;
+  box-shadow: 0 10px 24px rgba(15, 44, 63, 0.1);
+}
+
+.header-user-dropdown .user-toggle::after {
+  margin-left: 0.4rem;
+}
+
+.header-user-dropdown .dropdown-menu {
+  border-radius: 0.75rem;
+  border: 1px solid rgba(15, 44, 63, 0.12);
+  box-shadow: 0 16px 32px rgba(15, 44, 63, 0.15);
+}
+
+.header-search {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(15, 44, 63, 0.18);
+  border-radius: 999px;
+  padding: 0.2rem 0.35rem;
+  box-shadow: 0 12px 24px rgba(15, 44, 63, 0.12);
+  font-family: "Be Vietnam Pro", sans-serif;
+}
+
+.header-search-input {
+  border: none;
+  background: transparent;
+  min-width: 220px;
+  font-weight: 500;
+  color: var(--header-ink);
+}
+
+.header-search-input:focus {
+  box-shadow: none;
+}
+
+.header-search-button {
+  border-radius: 999px;
+  border: none;
+  background: var(--header-accent);
+  color: #fff;
+  padding: 0.3rem 0.55rem;
+}
+
+.header-search-button:hover {
+  background: #c66805;
+  color: #fff;
+}
+
+@keyframes header-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 991.98px) {
+  .header-inner {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "center"
+      "left"
+      "right";
+    text-align: center;
+  }
+
+  .header-left,
+  .header-right {
+    justify-content: center;
+  }
+
+  .header-logo {
+    width: 72px;
+    height: 44px;
+  }
+
+  .brand-text {
+    font-size: 1.15rem;
+  }
+
+  .header-search {
+    width: min(100%, 420px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .main-header {
+    animation: none;
+  }
+
+  .header-auth-link {
+    transition: none;
+  }
+}

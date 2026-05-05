@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: rag_fastapi
+    restart: always
+    ports:
+      - "8000:8000"
+    env_file:
+      - ../.env.docker
+    # Thêm extra_hosts để container có thể gọi localhost của máy host
+    # (nơi chứa các DB, RabbitMQ... từ infra file)
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  worker:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: rag_worker
+    restart: always
+    command: ["uv", "run", "python", "-m", "workers"]
+    env_file:
+      - ../.env.docker
+    extra_hosts:
+      - "host.docker.internal:host-gateway"

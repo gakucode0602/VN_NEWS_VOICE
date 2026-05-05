@@ -1,0 +1,7 @@
+.env.infra
+.env.article
+.env.auth
+.env.comment
+.env.crawler
+.env.scheduler
+.env.gateway

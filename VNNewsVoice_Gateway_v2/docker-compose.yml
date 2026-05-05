@@ -1,0 +1,18 @@
+services:
+  gateway-v2:
+    image: nginx:alpine
+    container_name: vnnewsvoice-gateway-v2
+    restart: unless-stopped
+    ports:
+      - "8088:80"
+    environment:
+      RAG_UPSTREAM_URL: ${RAG_UPSTREAM_URL:-http://localhost:8000}
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf.template:ro
+    # envsubst substitutes only RAG_UPSTREAM_URL, leaving all other nginx $variables intact.
+    command: >
+      /bin/sh -c
+      "envsubst '$$RAG_UPSTREAM_URL' < /etc/nginx/nginx.conf.template > /etc/nginx/nginx.conf
+      && nginx -g 'daemon off;'"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"

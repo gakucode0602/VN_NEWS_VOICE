@@ -1,0 +1,97 @@
+version: '3.8'
+
+services:
+  # ---------------------------------------------------------------------------
+  # Application Services (auto-updated by Watchtower)
+  # ---------------------------------------------------------------------------
+  auth-service:
+    image: ghcr.io/thereaper0602/vnnewsvoice_authservice:latest
+    container_name: vnnewsvoice-auth
+    restart: unless-stopped
+    env_file: .env.auth
+    networks: [vnnewsvoice_infrastructure_default]
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+
+  article-service:
+    image: ghcr.io/thereaper0602/vnnewsvoice_articleservice:latest
+    container_name: vnnewsvoice-article
+    restart: unless-stopped
+    env_file: .env.article
+    networks: [vnnewsvoice_infrastructure_default]
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+
+  comment-service:
+    image: ghcr.io/thereaper0602/vnnewsvoice_commentservice:latest
+    container_name: vnnewsvoice-comment
+    restart: unless-stopped
+    env_file: .env.comment
+    networks: [vnnewsvoice_infrastructure_default]
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+
+  scheduler-service:
+    image: ghcr.io/thereaper0602/vnnewsvoice_schedulerservice:latest
+    container_name: vnnewsvoice-scheduler
+    restart: unless-stopped
+    env_file: .env.scheduler
+    networks: [vnnewsvoice_infrastructure_default]
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+
+  crawling-service:
+    image: ghcr.io/thereaper0602/vnnewsvoice_crawlingservice:latest
+    container_name: vnnewsvoice-crawler
+    restart: unless-stopped
+    env_file: .env.crawler
+    networks: [vnnewsvoice_infrastructure_default]
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+
+  gateway:
+    image: ghcr.io/thereaper0602/vnnewsvoice_gateway_v2:latest
+    container_name: vnnewsvoice-gateway
+    restart: unless-stopped
+    ports: ["80:80"]
+    networks: [vnnewsvoice_infrastructure_default]
+    env_file: .env.gateway
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf.template:ro
+    # envsubst substitutes only RAG_UPSTREAM_URL, leaving all other nginx $variables intact.
+    command: >
+      /bin/sh -c
+      "envsubst '$$RAG_UPSTREAM_URL' < /etc/nginx/nginx.conf.template > /etc/nginx/nginx.conf
+      && nginx -g 'daemon off;'"
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+
+  # ---------------------------------------------------------------------------
+  # Watchtower — Auto-pull & restart containers when GHCR image updates
+  # ---------------------------------------------------------------------------
+  # Polls GHCR every 5 minutes. Only monitors containers with
+  # label "com.centurylinklabs.watchtower.enable=true".
+  # Infrastructure containers (postgres, rabbitmq, redis...) are NOT labeled
+  # and will NEVER be auto-updated.
+  watchtower:
+    image: containrrr/watchtower
+    container_name: watchtower
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      # GHCR registry credentials (created by `docker login ghcr.io`)
+      - ~/.docker/config.json:/config.json:ro
+    environment:
+      WATCHTOWER_POLL_INTERVAL: 300             # 5 minutes
+      WATCHTOWER_CLEANUP: "true"                # Remove old images after update
+      WATCHTOWER_LABEL_ENABLE: "true"           # Only update labeled containers
+      WATCHTOWER_INCLUDE_STOPPED: "false"       # Skip stopped containers
+      WATCHTOWER_ROLLING_RESTART: "true"        # Restart one at a time (zero-downtime)
+      WATCHTOWER_TIMEOUT: 60s                   # Wait 60s for graceful shutdown
+      WATCHTOWER_LIFECYCLE_HOOKS: "true"        # Enable pre/post-update hooks
+      WATCHTOWER_NO_STARTUP_MESSAGE: "false"    # Log startup for audit
+      TZ: Asia/Ho_Chi_Minh                      # Correct timezone for logs
+
+networks:
+  vnnewsvoice_infrastructure_default:
+    external: true

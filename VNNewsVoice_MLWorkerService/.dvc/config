@@ -1,0 +1,5 @@
+[core]
+    remote = minio
+['remote "minio"']
+    url = s3://vnnewsvoice-models
+    endpointurl = http://157.230.250.52:9000
